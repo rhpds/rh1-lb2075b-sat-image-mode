@@ -140,8 +140,27 @@ approval_checklist:
         overview: "Navigates the Satellite Web UI to find the published image tag URL (the 'Published At' field) needed to target the new image in the Bootc Switch remote job."
       - title: "Schedule Remote Job"
         overview: "Schedules a Bootc Switch remote job targeting rhel2, uses bootc status to verify the staged image, reboots rhel2 into the new image, and confirms the updated MOTD is displayed."
-    rcars_overlap_pct: null
-    rcars_top_matches: []
+    rcars_overlap_pct: 37
+    rcars_top_matches:
+      - title: "Satellite Advanced Topics"
+        ci_name: "zt-rhelbu.zt-satellite-advanced-topics.prod"
+        url: "https://catalog.demo.redhat.com/catalog?item=zt-rhelbu.zt-satellite-advanced-topics.prod"
+        relevance_score: 37
+        why_it_fits: "Covers RHEL image mode (bootc) management within Satellite, including the Satellite container registry and Remote Execution — closely matching the goals of registering bootc hosts, building/pushing container images, and deploying updates via Satellite remote jobs."
+        workloads: []
+      - title: "Satellite Basics"
+        ci_name: "zt-rhelbu.zt-satellite-basics.prod"
+        url: "https://catalog.demo.redhat.com/catalog?item=zt-rhelbu.zt-satellite-basics.prod"
+        relevance_score: 27
+        why_it_fits: "Covers Satellite host registration and content view workflows, which partially overlaps with the lab's Satellite setup steps."
+        workloads: []
+      - title: "Image Mode is the best mode"
+        ci_name: "zt-rhelbu.zt-image-mode-rh1.prod"
+        url: "https://catalog.demo.redhat.com/catalog?item=zt-rhelbu.zt-image-mode-rh1.prod"
+        relevance_score: 26
+        why_it_fits: "Covers bootc lifecycle including bootc switch, derived images, and security controls — similar image mode concepts but without Satellite management."
+        workloads: []
+    catalog_gap: "No existing catalog lab combines Satellite-managed container registry, bootc host registration, and Satellite remote job-based image updates at an intermediate level in a focused 30-minute format. The closest match covers these topics as a subset of a 120-minute advanced lab alongside unrelated content (ISS, Ansible Collection, MQTT), built on Satellite 6.18. This lab is purpose-built for the Satellite + image mode integration workflow at intermediate difficulty."
     rejections: []
 
   infra:
