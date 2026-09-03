@@ -1,0 +1,14 @@
+# Satellite Image Mode
+
+Welcome to the project spec. Use the navigation to browse the design and module outlines.
+
+- [Design Spec](design.md)
+- [Module 1 - Introduction](modules/module-01-introduction.md)
+- [Module 2 - Container Repository](modules/module-02-container-repository.md)
+- [Module 3 - Activation Key](modules/module-03-activation-key.md)
+- [Module 4 - Register Host](modules/module-04-register-host.md)
+- [Module 5 - Verify Host](modules/module-05-verify-host.md)
+- [Module 6 - Update Image](modules/module-06-update-image.md)
+- [Module 7 - Push Image](modules/module-07-push-image.md)
+- [Module 8 - Image Label](modules/module-08-image-label.md)
+- [Module 9 - Remote Job](modules/module-09-remote-job.md)
