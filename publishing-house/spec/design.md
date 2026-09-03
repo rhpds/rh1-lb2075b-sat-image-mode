@@ -1,89 +1,85 @@
-# [Project Title]
-
-<!-- This file is the design document for your lab or demo. -->
-<!-- Fill in each section below, or run /rhdp-publishing-house to have the intake skill help. -->
-<!-- Sections marked with [brackets] are placeholders — replace with real content. -->
-<!-- The validation gate checks for all required sections before submission. -->
+# Satellite Image Mode: Registering and Updating RHEL Image Mode Hosts with Red Hat Satellite 6.19
 
 ## Overview
 
-[2-3 sentences on what this lab or demo is and why it exists. Then a direct description of what participants will do — specific enough that someone reading this section immediately understands the content without interpretation. No flowery language. Example: "Participants will deploy a 3-tier application on OpenShift, configure autoscaling, and troubleshoot a simulated pod failure."]
+This lab introduces RHEL image mode (bootc), a container-native approach to operating system lifecycle management, and demonstrates how Red Hat Satellite 6.19 manages bootc systems at scale. Participants register a pre-built image mode host to a Satellite server, create the required container product and activation key, build a customized bootc container image on a builder node, push it to Satellite's embedded container registry, and use Satellite remote jobs to stage and apply the update on the managed host. The entire workflow — from registration through update and verification — is completed in approximately 30 minutes.
 
 ## Target Audience
 
-- **Role:** [Data scientists, platform engineers, developers, etc.]
-- **Experience level:** [Beginner, intermediate, or advanced]
-- **What they already know:** [Existing skills and knowledge]
-- **What they don't know:** [Skills this lab teaches]
+- **Role:** Systems administrators, platform engineers
+- **Experience level:** Intermediate
+- **What they already know:** Basic Linux CLI usage, basic container image concepts (what an image is, what a tag is, what a registry is), familiarity with web-based administration UIs
+- **What they don't know:** How to register RHEL image mode (bootc) hosts to Red Hat Satellite, how Satellite manages container-based OS images, how to use Satellite remote jobs to update bootc systems
 
 ## Prerequisites
 
-- [What the learner must know or have completed before starting]
-- [Can the lab validate these automatically? Yes/No — brief explanation]
-
-<!-- If no prerequisites, write "None" -->
+- Basic familiarity with Linux command-line operations
+- Basic understanding of container image concepts (image, tag, registry)
+- No prior Red Hat Satellite experience required; all Satellite configuration is performed from scratch during the lab
+- The lab can partially validate prerequisites automatically: SSH access from satellite.lab to rhel2.lab is confirmed by the registration step, and Satellite pre-installation is verified by the Web UI being accessible at lab start
 
 ## Learning Objectives
 
-1. [Action verb] [specific, measurable outcome]
-2. [Action verb] [specific, measurable outcome]
-3. [Action verb] [specific, measurable outcome]
-
-<!-- Scale to duration: up to 3 objectives per 45 min of content. Start with action verbs: Configure, Deploy, Create, Implement, Troubleshoot, Monitor, Scale. Each should be testable. NOT: Understand, Learn, Know. -->
+1. Register a RHEL image mode host to Red Hat Satellite 6.19 by creating a container product, activation key, and executing a hammer-generated registration command via SSH.
+2. Build, push, and deploy a customized bootc container image to a managed host using Satellite's embedded container registry and Satellite remote jobs.
 
 ## Content Type
 
-[Lab (hands-on) or Demo (presenter-led)]
+Lab (hands-on)
 
 ## Products & Technologies
 
-- [Official Red Hat product name with version if relevant]
-- [Additional products/technologies]
-
-<!-- Use official names: "Red Hat OpenShift", not "OpenShift". List upstream projects separately. -->
+- Red Hat Satellite 6.19
+- Red Hat Enterprise Linux 10
+- RHEL Image Mode (bootc)
+- Podman
+- hammer CLI
+- Red Hat Container Registry (registry.redhat.io) — base image pre-staged in lab environment
+- Satellite embedded container registry
+- Satellite Remote Jobs (Rex)
 
 ## Module Map
 
 | Module | Title | Duration |
 |--------|-------|----------|
-| 1 | [Module title] | [XX min] |
-| 2 | [Module title] | [XX min] |
-| — | **Total hands-on** | **[X hours]** |
-| — | Intro / presentation | [~XX min] |
-| — | **Total lab** | **[~X hours]** |
-
-<!-- Each module 10-30 min. Total: lab 1-4 hours, demo 15-45 min. Modules should build on each other. -->
+| 1 | Image Mode Introduction | 3 min |
+| 2 | Create Container Repository | 2 min |
+| 3 | Create Activation Key | 2 min |
+| 4 | Register Image Mode Host | 3 min |
+| 5 | Verify Image Mode Host Details | 4 min |
+| 6 | Update Container Image | 5 min |
+| 7 | Push Container Image | 3 min |
+| 8 | Obtain Image Label | 2 min |
+| 9 | Schedule Remote Job | 6 min |
+| — | **Total hands-on** | **30 min** |
+| — | Intro / presentation | ~0 min |
+| — | **Total lab** | **~30 min** |
 
 ## Difficulty Level
 
-[Beginner, Intermediate, or Advanced]
+Intermediate
 
 ## Environment
 
-**Learner view:** [What exists when the lab starts — pre-deployed resources, what participants see and interact with. Be specific about cluster details.]
+**Learner view:** The lab starts with three pre-provisioned hosts: satellite.lab (Satellite 6.19 installed and running, Web UI accessible, embedded container registry active), rhel1.lab (RHEL 10 builder node with Podman installed and the rhel10/rhel-bootc:10.1 base image pre-pulled), and rhel2.lab (RHEL 10 pre-built as a bootc system, SSH-accessible from satellite.lab as root). Participants interact via three wetty terminal tabs (/wetty_satellite, /wetty_rhel1, /wetty_rhel2) and the Satellite Web UI tab. No Satellite content configuration is pre-done — participants create all products, activation keys, and remote job runs from scratch during the lab.
 
-**Automation needed:** [Yes/No]
+**Automation needed:** Yes
 
-[If yes, list what automation must provision — operators, per-user resources, sample apps, data sets.]
+Pre-provisioned resources: Satellite 6.19 installed and running on satellite.lab with the Satellite admin credentials pre-set; rhel10/rhel-bootc:10.1 image pre-pulled on rhel1.lab; rhel2.lab booted as a bootc system and reachable via SSH from satellite.lab; wetty terminal sessions available on all three hosts; Satellite Web UI accessible from the lab tab.
 
 ## Infrastructure Requirements
 
-- **Cloud provider:** [CNV (default), AWS, or Troshka (bare-metal/nested virt)]
-- **Cluster type:** [Multinode or SNO (Single Node OpenShift)]
-- **OCP version:** [e.g. 4.20 — minimum 4.20]
-- **Topology:** [Shared cluster, per-student, or CNV pool]
-- **Sizing:** [Node types and counts with resources — e.g., "3 control plane (16 CPU, 64GB RAM), 6 workers (8 CPU, 32GB RAM, 100GB disk)"]
-- **Automation approach:** [Ansible, GitOps (Helm + ArgoCD), or combo]
-- **AI/MaaS:** [None, MaaS (open-source model), MaaS (frontier model), or dedicated GPU — include justification if not "none"]
-- **External services:** [Named services — e.g., github.com, registry.access.redhat.com — or "None"]
-- **AAP version:** [e.g. 2.5 — only if AAP is in products; omit otherwise]
-- **Non-GA products:** [Product name + version, with access plan — or "None (all products are GA)"]
-
-<!-- Not all fields must be known at intake. "TBD, estimating ~X" is fine. -->
+- **Cloud provider:** TBD — confirmed in infrastructure phase
+- **Cluster type:** TBD — confirmed in infrastructure phase
+- **OCP version:** TBD — confirmed in infrastructure phase
+- **Topology:** TBD — confirmed in infrastructure phase
+- **Sizing:** TBD — confirmed in infrastructure phase
+- **Automation approach:** TBD — confirmed in infrastructure phase
+- **AI/MaaS:** TBD — confirmed in infrastructure phase
+- **External services:** TBD — confirmed in infrastructure phase
+- **AAP version:** TBD — confirmed in infrastructure phase
+- **Non-GA products:** TBD — confirmed in infrastructure phase
 
 ## Assessment Strategy (Optional)
 
-<!-- Optional — skip this section for demos or classic labs without verification. -->
-<!-- Relevant for Zero-Touch labs with solve/validate buttons or labs with automated checks. -->
-
-[If applicable: how will we know the learner successfully completed each module? Per module: verification script, solve/validate button, visible result in the UI, or automated check.]
+This is a Zero-Touch lab. Each module has solve and validation scripts attached to the runtime automation. The solve script executes all participant commands for that module; the validation script checks that the expected system state is achieved before allowing progression. For GUI-only modules (create container product, create activation key, obtain image label), validation confirms the resulting Satellite API state — product exists, activation key exists, image tag is accessible in the registry. For CLI modules, validation checks command output and system state: host registered in Satellite after module 4, image successfully built and tagged after module 6, image present in Satellite registry after module 7, and bootc status showing the correct running image after module 9.

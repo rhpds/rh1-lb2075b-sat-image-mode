@@ -20,14 +20,52 @@ project:
   workflow_id: "1ee307f1-6f49-4608-b69b-9411fb136345"
 
 spec:
-  title: ""
-  learning_objectives: []
-  modules: []              # [{id, title, duration_min}] — written by intake Phase 4; id is stable (e.g. module-01)
+  title: "Satellite Image Mode"
+  learning_objectives:
+    - "Register a RHEL image mode host to Red Hat Satellite 6.19 by creating a container product, activation key, and executing a hammer-generated registration command via SSH."
+    - "Build, push, and deploy a customized bootc container image to a managed host using Satellite's embedded container registry and Satellite remote jobs."
+  modules:
+    - id: module-01
+      title: "Image Mode Introduction"
+      duration_min: 3
+      status: not_started
+    - id: module-02
+      title: "Create Container Repository"
+      duration_min: 2
+      status: not_started
+    - id: module-03
+      title: "Create Activation Key"
+      duration_min: 2
+      status: not_started
+    - id: module-04
+      title: "Register Image Mode Host"
+      duration_min: 3
+      status: not_started
+    - id: module-05
+      title: "Verify Image Mode Host Details"
+      duration_min: 4
+      status: not_started
+    - id: module-06
+      title: "Update Container Image"
+      duration_min: 5
+      status: not_started
+    - id: module-07
+      title: "Push Container Image"
+      duration_min: 3
+      status: not_started
+    - id: module-08
+      title: "Obtain Image Label"
+      duration_min: 2
+      status: not_started
+    - id: module-09
+      title: "Schedule Remote Job"
+      duration_min: 6
+      status: not_started
   environment:
-    platform: ""               # ocp | rhel-vms — determines which sizing fields apply
-    topology: ""               # shared-cluster | per-student | cnv-pool
-    cloud_provider: cnv        # cnv | aws — cnv is default
-    max_concurrent_users: null # required if topology = shared-cluster
+    platform: "rhel-vms"               # ocp | rhel-vms — determines which sizing fields apply
+    topology: "per-student"            # shared-cluster | per-student | cnv-pool
+    cloud_provider: cnv                # cnv | aws — cnv is default
+    max_concurrent_users: null         # required if topology = shared-cluster
 
     # --- OCP-specific fields (only when platform = ocp) ---
     ocp_version: ""                    # e.g. 4.20 — minimum 4.20; leave empty for rhel-vms
@@ -46,7 +84,7 @@ spec:
 
     # --- Common fields (both platforms) ---
     aap_version: ""                    # required if AAP in products
-    ai_requirement: ""                 # maas | gpu | none
+    ai_requirement: "none"             # maas | gpu | none
     ai_model_tier: ""                  # open-source | frontier (if ai_requirement = maas or gpu)
     ai_model_name: ""                  # specific model e.g. granite-3.1-8b
     ai_justification: ""               # required if ai_model_tier = frontier or ai_requirement = gpu
@@ -55,8 +93,8 @@ spec:
     external_services: []              # named external service dependencies e.g. [github.com]
     gpu_nodes: 0                       # number of GPU nodes (0 = none)
     gpu_type: ""                       # e.g. NVIDIA A100 40GB (required if gpu_nodes > 0)
-  duration_hours: null
-  audience: ""               # beginner | intermediate | advanced
+  duration_hours: 0.5
+  audience: "intermediate"
 
 development:
   automation:
@@ -79,11 +117,29 @@ tracking:
 approval_checklist:
 
   content:
-    prerequisites_verifiable: null
+    prerequisites_verifiable: true
     assessment_strategy: ""
     catalog_gap: ""
-    design_overview: ""
-    module_summaries: []
+    design_overview: "This lab guides participants through registering a RHEL image mode (bootc) host to Red Hat Satellite 6.19 and using Satellite to build, push, and deploy a customized container-based OS image. Participants configure Satellite products and activation keys, register the host via the hammer CLI, customize a bootc container image with Podman on a builder node, and apply the update through Satellite remote jobs. The lab covers the full image mode lifecycle — registration, image customization, and deployment — in approximately 30 minutes."
+    module_summaries:
+      - title: "Image Mode Introduction"
+        overview: "Introduces RHEL image mode (bootc) concepts and the lab environment of one Satellite server and two RHEL 10 hosts. Participants log into the Satellite Web UI using provided credentials."
+      - title: "Create Container Repository"
+        overview: "Creates a 'bootc' product in the Satellite Web UI to serve as the container repository for storing image mode images."
+      - title: "Create Activation Key"
+        overview: "Creates a 'bootc' activation key in Satellite assigned to the Library lifecycle environment with the Default Organization View, which will be used to register the image mode host."
+      - title: "Register Image Mode Host"
+        overview: "Uses the hammer CLI on satellite.lab to generate a host registration command and pipes it via SSH into rhel2, registering the pre-built image mode host with Satellite."
+      - title: "Verify Image Mode Host Details"
+        overview: "Explores the Container Images section in Satellite Web UI, schedules a Bootc Status remote job against rhel2, and reviews the image mode details card on the host detail page."
+      - title: "Update Container Image"
+        overview: "Creates a Containerfile on rhel1 extending rhel10/rhel-bootc:10.1 with a custom MOTD, then builds the new bootc image with Podman and tags it for the Satellite registry."
+      - title: "Push Container Image"
+        overview: "Logs into the Satellite embedded container registry from rhel1 and pushes the newly built bootc image so it is available for deployment."
+      - title: "Obtain Image Label"
+        overview: "Navigates the Satellite Web UI to find the published image tag URL (the 'Published At' field) needed to target the new image in the Bootc Switch remote job."
+      - title: "Schedule Remote Job"
+        overview: "Schedules a Bootc Switch remote job targeting rhel2, uses bootc status to verify the staged image, reboots rhel2 into the new image, and confirms the updated MOTD is displayed."
     rcars_overlap_pct: null
     rcars_top_matches: []
     rejections: []
