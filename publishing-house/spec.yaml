@@ -80,7 +80,25 @@ spec:
 
     # --- VM-specific fields (only when platform = rhel-vms) ---
     # Each entry: {role, count, cpu, ram_gb, disk_gb, os}
-    vms_per_student: []
+    vms_per_student:
+      - role: "Satellite 6.19 server"
+        count: 1
+        cpu: 8
+        ram_gb: 32
+        disk_gb: 540
+        os: "satellite-server-rhdp-1-6-19-04-09-26-v2"
+      - role: "RHEL 10.1 builder node (rhel1)"
+        count: 1
+        cpu: 1
+        ram_gb: 4
+        disk_gb: 40
+        os: "rhel-10-1-04-15-26"
+      - role: "RHEL 10.1 image mode host (rhel2)"
+        count: 1
+        cpu: 1
+        ram_gb: 4
+        disk_gb: 40
+        os: "rhel-10-1-04-15-26"
 
     # --- Common fields (both platforms) ---
     aap_version: ""                    # required if AAP in products
@@ -90,7 +108,7 @@ spec:
     ai_justification: ""               # required if ai_model_tier = frontier or ai_requirement = gpu
     non_ga_products: []                # list of non-GA products/versions
     non_ga_access_plan: ""             # how access is provided for non-GA products
-    external_services: []              # named external service dependencies e.g. [github.com]
+    external_services: []              # none — all egress stays within per-student environment (TCP 443 to local Satellite only)
     gpu_nodes: 0                       # number of GPU nodes (0 = none)
     gpu_type: ""                       # e.g. NVIDIA A100 40GB (required if gpu_nodes > 0)
   duration_hours: 0.5

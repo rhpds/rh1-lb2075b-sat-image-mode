@@ -69,16 +69,18 @@ Pre-provisioned resources: Satellite 6.19 installed and running on satellite.lab
 
 ## Infrastructure Requirements
 
-- **Cloud provider:** TBD — confirmed in infrastructure phase
-- **Cluster type:** TBD — confirmed in infrastructure phase
-- **OCP version:** TBD — confirmed in infrastructure phase
-- **Topology:** TBD — confirmed in infrastructure phase
-- **Sizing:** TBD — confirmed in infrastructure phase
-- **Automation approach:** TBD — confirmed in infrastructure phase
-- **AI/MaaS:** TBD — confirmed in infrastructure phase
-- **External services:** TBD — confirmed in infrastructure phase
-- **AAP version:** TBD — confirmed in infrastructure phase
-- **Non-GA products:** TBD — confirmed in infrastructure phase
+- **Cloud provider:** CNV
+- **Platform:** RHEL VMs
+- **Topology:** Per-student
+- **Sizing (per student):**
+  - 1 × Satellite 6.19 server — `satellite.lab` (8 vCPU, 32GB RAM, 540Gi disk)
+  - 1 × RHEL 10.1 builder node — `rhel1.lab` (1 vCPU, 4GB RAM, 40GB disk)
+  - 1 × RHEL 10.1 image mode host — `rhel2.lab` (1 vCPU, 4GB RAM, 40GB disk)
+- **Automation approach:** Ansible
+- **AI/MaaS:** None
+- **External services:** None — all egress stays within the per-student environment (TCP 443 to local Satellite only)
+- **AAP version:** N/A
+- **Non-GA products:** None (all products are GA)
 
 ## Assessment Strategy (Optional)
 
