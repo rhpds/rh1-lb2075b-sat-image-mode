@@ -20,9 +20,9 @@ With rhel2 registered, this module explores the image mode information Satellite
 
 | Section | Title | Duration |
 |---------|-------|----------|
-| 1 | View booted container images in Satellite | 1.5 min |
-| 2 | Schedule and run the Bootc Status remote job | 1.5 min |
-| 3 | View image mode details on the rhel2 host page | 1 min |
+| 1 | View booted container images | 1.5 min |
+| 2 | Update the container image status (schedule Bootc Status job) | 1.5 min |
+| 3 | View image mode details | 1 min |
 
 ## Detailed Steps
 
@@ -33,7 +33,7 @@ With rhel2 registered, this module explores the image mode information Satellite
 4. Click the "Booted" tab.
 5. Under the "Hosts" column, click the number `1` link to view the host.
 
-**Step 2 — Schedule Bootc Status remote job:**
+**Step 2 — Update the container image status (schedule Bootc Status remote job):**
 1. Check the checkbox for "rhel2.lab" in the host list.
 2. Click "Schedule a Job".
 3. In the job category dropdown, select "Bootc".
@@ -43,6 +43,7 @@ With rhel2 registered, this module explores the image mode information Satellite
 7. Review the output, which shows the image the host was booted from and other bootc metadata.
 
 **Step 3 — View image mode details:**
+
 1. Click on "rhel2.lab" to navigate to the host detail page.
 2. Click the "Details" tab.
 3. Scroll down to the "Image mode details" card.

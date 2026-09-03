@@ -19,9 +19,9 @@ This opening module sets the stage for the entire lab. It introduces RHEL image 
 
 | Section | Title | Duration |
 |---------|-------|----------|
-| 1 | Concept overview — what is image mode | 1 min |
-| 2 | Lab environment diagram review | 1 min |
-| 3 | Log into the Satellite Web UI | 1 min |
+| 1 | Image Mode — bootc concept and eight-module summary | 1 min |
+| 2 | Lab Environment — environment diagram review | 1 min |
+| 3 | Log into the Web UI | 1 min |
 
 ## Detailed Steps
 

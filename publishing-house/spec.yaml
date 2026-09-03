@@ -14,7 +14,7 @@ project:
   showroom_type: "zero_touch"
   intake_type: "migration"
   automation_type: "ansible"
-  description: "A hands on lab that delves into Red Hat Satellite features such as compliance monitoring and scanning, image mode, and vulnerability detection and remediation."
+  description: "A hands-on lab covering the complete RHEL image mode (bootc) lifecycle managed through Red Hat Satellite 6.19 — participants register a bootc host to Satellite, build and push a customized bootc container image to the Satellite embedded registry, and deploy the update to the managed host using Satellite remote jobs."
   # content_reviewer_email and infra_reviewer_email are assigned by the RHDP team — not set by the author
   jira_ticket: "RHDPCD-1514"
   workflow_id: "1ee307f1-6f49-4608-b69b-9411fb136345"
